@@ -1,36 +1,28 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PGA Teleprompter</title>
-  <script src="https://cdn.jsdelivr.net/npm/shinylive@0.7.0/shinylive/shinylive.js" type="module"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shinylive@0.7.0/shinylive/shinylive.css" />
-  <style>
-    html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #1a1a1a; }
-    #app-container { height: 100vh; width: 100vw; }
-    /* Hide shinylive editor chrome */
-    .shinylive-container .editor-pane { display: none !important; }
-  </style>
-</head>
-<body>
-  <div id="app-container"></div>
-  <script type="module">
-    import { runApp } from "https://cdn.jsdelivr.net/npm/shinylive@0.7.0/shinylive/shinylive.js";
-
-    // Load app files
-    const appResponse = await fetch("app.py");
-    const appCode = await appResponse.text();
-
-    const dataResponse = await fetch("songs_bundle.json");
-    const dataText = await dataResponse.text();
-
-    const fileContents = [
-      { name: "app.py", content: appCode, type: "text" },
-      { name: "songs_bundle.json", content: dataText, type: "text" },
-    ];
-
-    runApp("app-container", "py", fileContents, "viewer");
-  </script>
-</body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shiny App</title>
+    <script
+      src="./shinylive/load-shinylive-sw.js"
+      type="module"
+    ></script>
+    <script type="module">
+      import { runExportedApp } from "./shinylive/shinylive.js";
+      runExportedApp({
+        id: "root",
+        appEngine: "python",
+        relPath: "",
+      });
+    </script>
+    <link rel="stylesheet" href="./shinylive/style-resets.css" />
+    <link rel="stylesheet" href="./shinylive/shinylive.css" />
+    
+  </head>
+  <body>
+    
+    <div style="height: 100vh; width: 100vw" id="root"></div>
+    
+  </body>
 </html>
